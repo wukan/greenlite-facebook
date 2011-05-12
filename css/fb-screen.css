@@ -1,0 +1,116 @@
+/*
+ * GENERAL STYLES
+ *
+ */
+
+body {
+  background: #f1efe8;
+
+  font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Arial, sans-serif;
+  color: #36332a;
+}
+
+a:link, a:active, a:visited {
+  color: #af670a;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #227115;
+}
+
+a img {
+  border: none;
+}
+
+legend {
+  display:none;
+}
+
+img {
+  display:block;
+}
+
+#wrapper {
+  position: relative;
+  margin: 0 auto;
+  width: 1070px;
+}
+
+/*
+ * HEADER
+ *
+ */
+#header h1 {
+  float: left;
+  margin: 25px;
+  font-size: 32px;
+  line-height: 32px;
+}
+
+.clear {
+  clear: both;
+}
+
+/*
+ * MAIN CONTENT
+ *
+ */
+#main {
+  float: left;
+  width: 680px;
+  margin-top: 4px;
+  padding: 4px;
+}
+
+#standing {
+  min-height: 240px;
+  padding: 4px;
+}
+
+#standing h1 {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+#intro {
+  margin-top: 12px;
+  min-height: 200px;
+  padding: 4px;
+}
+
+#intro h1{
+  font-size: 18px;
+  line-height: 24px;
+}
+
+/*
+ * SECONDARY CONTENT
+ *
+ */
+#secondary {
+  float: left;
+  width: 360px;
+  margin: 4px 0 0 10px;
+  padding: 4px;
+}
+
+#users {
+  min-height: 320px;
+  padding: 4px;
+}
+
+#join {
+  margin-top: 24px;
+  min-height: 40px;
+}
+
+#join h2 {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 6px;
+  text-align: center;
+  font-size: 24px;
+  line-height: 24px;
+}
+
