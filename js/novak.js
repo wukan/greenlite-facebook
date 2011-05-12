@@ -1,6 +1,35 @@
 $(document).ready(function() {
 
+function showRegistrationForm() {
+  if (location.href.search('signup') != -1) {
+    $('#fb-login-btn').hide();
+    $('#fb-reg-btn').show();
+  } 
+}
+showRegistrationForm();
+
+FB.init({
+  appId: '145575762174998', 
+  status: true, 
+  cookie: true, 
+  xfbml: true 
+});
+
 FB.getLoginStatus(function(response) {
+  if (response.status == 'unknown') {
+    $('#log-status h3').text('Not logged in');
+    $('#log-status').show();
+    $('#fb-login-btn').show();
+  } else if (response.status == 'notConnected') {
+    $('#log-status h3').text('Logged in but not connected');
+    $('#log-status').show();
+    $('#fb-login-btn').show();
+  } else {
+    $('#fb-login-btn').hide();
+    $('#log-status h3').text('Connected');
+    $('#log-status').show();
+  }
+  /*
   if (response.session) {
     $('#logged').show();
     $('#unlogged').hide();
@@ -8,6 +37,7 @@ FB.getLoginStatus(function(response) {
     $('#unlogged').show();
     $('#logged').hide();
   }
+  */
 });
 
 $('#fb-login').click(function() {
