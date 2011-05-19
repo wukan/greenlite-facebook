@@ -54,7 +54,7 @@
               {'name':'email'},
               {'name':'team', 'description':'Which team?', 'type':'select', 'options':{'N':'Novak', 'C':'Collis'}}
             ]" 
-            redirect-uri="http://www.cs.dartmouth.edu/~wukan/fb/"
+            redirect-uri="http://www.cs.dartmouth.edu/~wukan/fb/signup.php"
             fb-only="True"
             id="fb-reg-btn"
             width="320"
