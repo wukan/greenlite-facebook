@@ -52,7 +52,7 @@
             fields="[
               {'name':'name'},
               {'name':'email'},
-              {'name':'team', 'description':'Which team?', 'type':'select', 'options':{'N':'Novak', 'C':'Collis'}}
+              {'name':'team', 'description':'Which team?', 'type':'select', 'options':{'100':'Novak', '101':'Collis'}}
             ]" 
             redirect-uri="http://www.cs.dartmouth.edu/~wukan/fb/signup.php"
             fb-only="True"

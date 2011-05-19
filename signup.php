@@ -1,6 +1,7 @@
 <?php
-require_once 'config.php';
+require_once './config.php';
 require_once './facebook.php';
+require_once './query.php';
 
 function parse_signed_request($signed_request, $secret) {
   list($encoded_sig, $payload) = explode('.', $signed_request, 2);
@@ -28,14 +29,35 @@ function base64_url_decode($input) {
   return base64_decode(strtr($input, '-_', '+/'));
 }
 
+function user_signup($data) {
+  $user_id = $data['user_id'];
+  $name = $data['registration']['name'];
+  $email = $data['registration']['email'];
+  $team_id = $data['registration']['team'];
+
+  $query = "SELECT * FROM `goal_users` WHERE" .
+    " `id`=\"$user_id\""; 
+  if (get_query_num_rows($query) > 0) {
+    $query = "UPDATE `goal_users`".
+      " SET `name`=\"$name\"" .
+      " `email`=\"$email\"" .
+      " `node_id`=$team_id" .
+      " WHERE `id`=\"$user_id\"";
+    set_query_row($query);
+    echo 'User info updated';
+  } else {
+    $query = "INSERT INTO `goal_users`" .
+      " VALUES (\"$user_id\", \"$name\"," .
+      " \"$email\", $team_id)";
+    set_query_row($query);
+    echo 'User info inserted';
+  }
+}
+
 
 if ($_REQUEST) {
-  echo '<p>signed_request contents:</p>';
   $response = parse_signed_request($_REQUEST['signed_request'], FB_SECRET);
-
-  echo '<pre>';
-  print_r($response);
-  echo '</pre>';
+  user_signup($response);
 } else {
   echo '$_REQUEST is empty';
 }

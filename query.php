@@ -1,14 +1,14 @@
 <?php // query.php
 
-require_once('../config.php');
+require_once './config.php';
 
 function set_query_row($query) {
-  $db_server = mysql_connect($db_hostname, $db_username, $db_password);
+  $db_server = mysql_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD);
 
   if (!$db_server)
     die ("Unable to connect to MySQL: " . mysql_error());
 
-  mysql_select_db($db_database)
+  mysql_select_db(DB_DATABASE)
     or die("Unable to select database: " . mysql_error());
 
   $result = mysql_query($query);
@@ -19,12 +19,12 @@ function set_query_row($query) {
 }
 
 function get_query_rows($query) {
-  $db_server = mysql_connect($db_hostname, $db_username, $db_password);
+  $db_server = mysql_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD);
 
   if (!$db_server)
     die ("Unable to connect to MySQL: " . mysql_error());
 
-  mysql_select_db($db_database)
+  mysql_select_db(DB_DATABASE)
     or die("Unable to select database: " . mysql_error());
 
   $result = mysql_query($query);
@@ -42,21 +42,21 @@ function get_query_rows($query) {
 }
 
 function get_query_num_rows($query) {
-  require('login.php');
-  $db_server = mysql_connect($db_hostname, $db_username, $db_password);
+  $db_server = mysql_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD);
 
   if (!$db_server)
     die ("Unable to connect to MySQL: " . mysql_error());
 
-  mysql_select_db($db_database)
+  mysql_select_db(DB_DATABASE)
     or die("Unable to select database: " . mysql_error());
 
   $result = mysql_query($query);
   if (!$result) 
     die ("Database access failed: " . mysql_error());
 
-  $rows = mysql_num_rows($result);
-  return $rows;
+  $num_rows = mysql_num_rows($result);
+  mysql_close($db_server);
+  return $num_rows;
 }
 
 ?>
