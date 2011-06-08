@@ -39,10 +39,10 @@ function user_signup($data) {
     " `id`=\"$user_id\""; 
   if (get_query_num_rows($query) > 0) {
     $query = "UPDATE `goal_users`".
-      " SET `name`=\"$name\"" .
-      " `email`=\"$email\"" .
+      " SET `name`=\"$name\"," .
+      " `email`=\"$email\"," .
       " `node_id`=$team_id" .
-      " WHERE `id`=\"$user_id\"";
+      " WHERE `id`=$user_id";
     set_query_row($query);
     echo 'User info updated';
   } else {

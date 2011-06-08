@@ -1,6 +1,6 @@
 <?php
 
-require_once('../query.php');
+require_once('../controller.php');
 
 header('Content-type: application/json');
 

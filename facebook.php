@@ -598,6 +598,8 @@ class Facebook
     }
     $opts[CURLOPT_URL] = $url;
 
+    $opts[CURLOPT_SSL_VERIFYPEER] = false;
+
     // disable the 'Expect: 100-continue' behaviour. This causes CURL to wait
     // for 2 seconds if the server does not support this header.
     if (isset($opts[CURLOPT_HTTPHEADER])) {
