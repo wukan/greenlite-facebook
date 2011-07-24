@@ -3,34 +3,26 @@
 require_once('../query.php');
 require_once('../facebook.php');
 
-header('Content-type: application/json');
+$facebook = new Facebook(array(
+  'appId' => FB_APP_ID,
+  'secret' => FB_SECRET,
+  'cookie' => true,
+));
 
-$access_token = null;
-if (!isset($_GET['access_token'])) {
-  if (!isset($_GET['code'])) {
-    echo 'The code is not provided';
-    exit(0);
-  }
+$session = $facebook->getSession();
 
-  $code = $_GET['code'];
-  $response = file_get_contents(FB_API .
-    '/oauth/access_token?' .
-    'client_id=' . FB_APP_ID .
-    '&client_secret=' . FB_SECRET .
-    '&code=' . $code .
-    '&redirect_uri=' . SITE_DOMAIN . '/view/get-user.php');
-  $access_token = substr($response, strlen('access_token='), 
-    strpos($response, '&') - strlen('access_token='));
-} else {
-  $access_token = $_GET['access_token'];
+if (!$session) {
+  $login_url = $facebook->getLoginUrl();
+  header('Location: ' . $login_url);
 }
 
-$user = json_decode(file_get_contents(FB_API . '/me' .
-  '?access_token=' . $access_token));
-$friends = json_decode(file_get_contents(FB_API . '/me/friends' .
-  '?access_token=' . $access_token));
+header('Content-type: application/json');
 
-$uid = $user->id;
+$user = $facebook->api('/me');
+$friends = $facebook->api('/me/friends');
+$friends = $friends['data'];
+
+$uid = $user['id'];
 $result = get_user($uid);
 $result['friends'] = get_friends($friends);
 
@@ -38,8 +30,8 @@ echo json_encode($result);
 
 function get_friends($friends_list) {
   $friends_id_list = array();
-  foreach ($friends_list->data as $friend) {
-    array_push($friends_id_list, $friend->id);
+  foreach ($friends_list as $friend) {
+    array_push($friends_id_list, $friend['id']);
   }
   $query = "SELECT * FROM `goal_users`" .
     " WHERE `id` in (" . implode(',', $friends_id_list) . ")";

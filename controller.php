@@ -1,6 +1,6 @@
 <?php
 
-require_once './query.php';
+require_once './query-db.php';
 require_once './helper.php';
 
 function get_teamname_list($group_id = 0, $sort = 'point') {
